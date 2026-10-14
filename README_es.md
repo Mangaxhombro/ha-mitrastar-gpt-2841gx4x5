@@ -1,10 +1,12 @@
 # MitraStar GPT-2841GX4X5 — integración personalizada para Home Assistant
 
+![Router Smart WiFi 6 de Movistar](images/mitrastar_icon_transparente.png)
+
 > **Aviso de independencia:** Esta integración comunitaria está destinada a funcionar con routers MitraStar GPT-2841GX4X5 utilizados en redes Movistar. Es un proyecto independiente y no oficial, sin afiliación, patrocinio ni respaldo de Telefónica/Movistar ni de MitraStar. Los nombres de marcas y modelos se utilizan únicamente para identificar la compatibilidad prevista.
 
 Esta integración permite conectar Home Assistant con el router MitraStar GPT-2841GX4X5 (Router Smart WiFi 6 de Movistar) para realizar dos funciones:
 
-- Dar de alta en Home Assistant, como sensores binarios, todos los dispositivos conectados al roter. Muestra los dispositivos como conectado o no y adicionalmente muestra la dirección IP de cada uno de ellos. Esto permite, entre otras cosas, gestionar un robusto sistema de control de presencia asociado a la conexión a las redes Wifi de los dispositivos móviles.
+- Dar de alta en Home Assistant, como sensores binarios, todos los dispositivos conectados al router. Muestra los dispositivos como conectado o no y adicionalmente muestra la dirección IP de cada uno de ellos. Esto permite, entre otras cosas, gestionar un robusto y ágil sistema de control de presencia asociado a la conexión a las redes Wifi de los dispositivos móviles.
 - Control de conexión a internet. En caso de que la instalación pierda la conexión a internet, después de realizar tres comprobaciones (con una separación de 60 segundos entre cada una de ellas), detectando tres fallos consecutivos, la integración lanza un reinicio controlado por software del router. Además dispone de un botón para poder realizar un reinicio manual del router.
 
 ## Seguridad y comportamiento
