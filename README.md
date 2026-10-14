@@ -109,3 +109,5 @@ The remote reboot function requires a controlled test on the specific router fir
 Due to a router limitation that prevents multiple user sessions from being managed independently, accessing the router's administration interface manually while the integration is enabled may cause the web administration session to be logged out when the integration next connects automatically.
 
 It is therefore recommended to temporarily disable the integration whenever you need to make changes through the router's web administration interface.
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="mangaxhombro" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
