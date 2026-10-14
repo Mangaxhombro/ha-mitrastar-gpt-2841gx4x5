@@ -72,6 +72,8 @@ La entidad de botón **Reinicio manual del router** permite solicitar un reinici
 
 ## Instalación mediante HACS
 
+[![Open HACS Repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Mangaxhombro&repository=ha-mitrastar-gpt-2841gx4x5&category=integration)
+
 1. Abre **HACS → Integraciones** en Home Assistant.
 2. Abre el menú de los tres puntos y selecciona **Repositorios personalizados**.
 3. Añade `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` como repositorio de categoría **Integración**.
