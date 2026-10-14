@@ -110,4 +110,4 @@ Debido a limitaciones del router, que no puede gestionar varias cuentas de usuar
 
 Si esta integración te ha resultado útil te agradecería mucho tu apoyo y contribución:
 
-<a href="https://www.buymeacoffee.com/mangaxhombro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 55px !important;width: 150px !important;" ></a>
+<a href="https://www.buymeacoffee.com/mangaxhombro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 50px !important;width: 170px !important;" ></a>
