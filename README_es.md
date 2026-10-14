@@ -77,6 +77,15 @@ La instalación mediante repositorio personalizado no implica que esta integraci
 
 Copia la carpeta `mitrastar_router` a `/config/custom_components/mitrastar_router/`, reinicia Home Assistant y recarga la integración. Haz copia de seguridad de la carpeta anterior (si la hubiera) antes de sustituirla.
 
+## Configuración
+
+Tras la primera instalación, la integración pedirá la IP local del router, el nombre de usuario y la contraseña.
+
+El nombre de usuario se obtiene desde la zona de configuración avanzada --> Mantenimineto --> Cuenta de usuario.
+
+![Configuración avanzada](images/configuracion_avanzada.jpg.jpg)
+![Usuario](images/username.jpg)
+
 ## Limitaciones
 
-El reinicio remoto todavía requiere una prueba controlada en el firmware concreto. Mantén el interruptor apagado hasta verificar la monitorización y habilítalo solo cuando aceptes que puede reiniciar el router si ambos destinos externos fallan durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
+El reinicio remoto requiere una prueba controlada en el firmware concreto. Mantén el interruptor apagado hasta verificar la monitorización y habilítalo solo cuando aceptes que puede reiniciar el router si ambos destinos externos fallan durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
