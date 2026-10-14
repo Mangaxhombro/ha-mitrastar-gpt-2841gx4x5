@@ -84,6 +84,7 @@ Tras la primera instalación, la integración pedirá la IP local del router, el
 El nombre de usuario se obtiene desde la zona de configuración avanzada --> Mantenimineto --> Cuenta de usuario.
 
 ![Configuración avanzada](images/configuracion_avanzada.jpg)
+
 ![Usuario](images/username.jpg)
 
 ## Limitaciones
