@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/github/license/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5?style=flat)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/blob/main/LICENSE)
 [![HACS](https://img.shields.io/badge/HACS-Custom_Repository-41BDF5?style=flat)](https://www.hacs.xyz/)
 [![Validate](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/actions/workflows/validate.yaml/badge.svg?branch=main)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/actions/workflows/validate.yaml)
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-support-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/mangaxhombro)
 
 
 [🇪🇸 Leer en español](README_es.md)
