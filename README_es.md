@@ -11,7 +11,11 @@ Esta integración permite conectar Home Assistant con el router MitraStar GPT-28
 
 ## Gestión de sensores binarios
 
+La integración muestra el estado binario de los dispositivos (conectado/desconectado) así como la dirección IP.
+
 ![Controles reinicios](images/sensor_movil.jpg)
+
+Esto permite mostrar en HA paneles informativos en relación a los dispositivos o crear automatizaciones que utilicen dicho estado a modo de sensor de presencia. Lo cual en caso por ejemplo de dispositivos móviles de Apple, es un sistema mucho más robusto, fiable y rápido que la propia integración de la propia app de HA en dichos dispositivos. 
 
 ### Agrupar varias MAC como un único dispositivo
 
