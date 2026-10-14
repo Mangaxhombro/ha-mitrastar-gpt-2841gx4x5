@@ -32,6 +32,10 @@ La entidad de botón **Reinicio manual del router** permite solicitar un reinici
 
 **Advertencia:** al pulsar este botón el router se reinicia realmente y la conexión se interrumpe temporalmente. La prueba no demuestra por sí sola que el firmware no interprete de forma diferente los parámetros HTTP. Mantén desactivado el reinicio automático hasta completar la prueba.
 
+## Panel de sensores
+
+![Panel de sensores](images/panel_sensores.jpg)
+
 ## Instalación mediante HACS
 
 1. Abre **HACS → Integraciones** en Home Assistant.
