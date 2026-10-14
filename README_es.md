@@ -15,6 +15,8 @@ Esta integración permite conectar Home Assistant con el router MitraStar GPT-28
 
 ![Controles reinicios](images/controles_reinicios.jpg)
 
+### Gestión automática.
+
 - Comprueba TCP/53 contra 1.1.1.1 y 8.8.8.8 cada 60 segundos; declara fallo solo si fallan ambos.
 - Umbral: 3 fallos consecutivos.
 - El reinicio automático está desactivado por defecto; se habilita con el interruptor de Home Assistant.
@@ -24,7 +26,7 @@ Esta integración permite conectar Home Assistant con el router MitraStar GPT-28
 - Si se intenta un reinicio, no repite durante el mismo episodio; exige 5 minutos de Internet estable para desbloquear un nuevo episodio.
 - Espera hasta 10 minutos para verificar administración local e Internet. Si no se recupera, queda bloqueado y registra el error.
 
-### Reinicio manual del router
+### Reinicio manual del router.
 
 La entidad de botón **Reinicio manual del router** permite solicitar un reinicio explícito sin activar el interruptor de reinicio automático. Al pulsarla, la integración comprueba primero que la administración del router responde, envía la petición HTTP de reinicio usada por el watchdog y verifica durante un máximo de 10 minutos que vuelven la administración local y la conectividad a Internet. El resultado se refleja en el estado de recuperación y en el sensor de último intento.
 
