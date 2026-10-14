@@ -13,7 +13,7 @@ Esta integración permite conectar Home Assistant con el router MitraStar GPT-28
 
 ## Monitorización de la conexión a internet.
 
-![Controles reinicios](images/c0ntroles_reinicios.jpg)
+![Controles reinicios](images/controles_reinicios.jpg)
 
 - Comprueba TCP/53 contra 1.1.1.1 y 8.8.8.8 cada 60 segundos; declara fallo solo si fallan ambos.
 - Umbral: 3 fallos consecutivos.
