@@ -19,6 +19,8 @@ Esto permite mostrar en HA paneles informativos en relación a los dispositivos 
 
 ### Agrupar varias MAC como un único dispositivo
 
+La gestión de dispositivos se hace mediante la dirección MAC. En el caso de algunos dispositivos, al conectarse a las diferentes redes Wifi domésticas, la dirección MAC cambia. La integración dispone de una funcionalidad de agrupación de un mismo dispositivo bajo diferentes direcciones MAC. Esto garantiza una detección mucho más fiable y libre de errores o dispositivos repetidos. Cuando se utiliza esta funcionalidad la integración elimina automáticamente los dispositivos repetidos dejando un único dispositivo.
+
 En Home Assistant, abre **Ajustes → Dispositivos y servicios → Mitrastar Router → Configurar** (opciones).
 En el campo **Asociaciones de MAC**, añade una línea por cada dirección MAC, con el formato:
 
@@ -30,6 +32,8 @@ Se pueden asociar varias MAC al mismo nombre, una por línea:
 `11:22:33:44:55:66=iPhone de Mangaxhombro`
 
 Las MAC agrupadas se muestran como una única entidad lógica de presencia. El sensor **Dispositivos conectados** cuenta cada grupo una sola vez; **Lista de dispositivos** conserva el inventario físico del router, incluidas las MAC individuales.
+
+![Agrupación MACS](images/agrupacion_macs.jpg)
 
 ## Monitorización de la conexión a internet
 
