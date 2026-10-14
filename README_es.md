@@ -2,7 +2,10 @@
 
 > **Aviso de independencia:** Esta integración comunitaria está destinada a funcionar con routers MitraStar GPT-2841GX4X5 utilizados en redes Movistar. Es un proyecto independiente y no oficial, sin afiliación, patrocinio ni respaldo de Telefónica/Movistar ni de MitraStar. Los nombres de marcas y modelos se utilizan únicamente para identificar la compatibilidad prevista.
 
-Versión 1.4.0. Mantiene la consulta de dispositivos, la monitorización de conectividad y los controles de reinicio.
+Esta integración permite conectar Home Assistant con el router MitraStar GPT-2841GX4X5 (Router Smart WiFi 6 de Movistar) para realizar dos funciones:
+
+- Dar de alta en Home Assistant, como sensores binarios, todos los dispositivos conectados al roter. Muestra los dispositivos como conectado o no y adicionalmente muestra la dirección IP de cada uno de ellos. Esto permite, entre otras cosas, gestionar un robusto sistema de control de presencia asociado a la conexión a las redes Wifi de los dispositivos móviles.
+- Control de conexión a internet. En caso de que la instalación pierda la conexión a internet, después de realizar tres comprobaciones (con una separación de 60 segundos entre cada una de ellas), detectando tres fallos consecutivos, la integración lanza un reinicio controlado por software del router. Además dispone de un botón para poder realizar un reinicio manual del router.
 
 ## Seguridad y comportamiento
 
@@ -27,9 +30,9 @@ Versión 1.4.0. Mantiene la consulta de dispositivos, la monitorización de cone
 
 La instalación mediante repositorio personalizado no implica que esta integración esté incluida en el catálogo predeterminado de HACS.
 
-## Instalación
+## Instalación manual
 
-Copia la carpeta `mitrastar_router` a `/config/custom_components/mitrastar_router/`, reinicia Home Assistant y recarga la integración. Haz copia de seguridad de la carpeta anterior antes de sustituirla.
+Copia la carpeta `mitrastar_router` a `/config/custom_components/mitrastar_router/`, reinicia Home Assistant y recarga la integración. Haz copia de seguridad de la carpeta anterior (si la hubiera) antes de sustituirla.
 
 ## Limitaciones
 
@@ -48,43 +51,11 @@ La entidad de botón **Reinicio manual del router** permite solicitar un reinici
 En Home Assistant, abre **Ajustes → Dispositivos y servicios → Mitrastar Router → Configurar** (opciones).
 En el campo **Asociaciones de MAC**, añade una línea por cada dirección MAC, con el formato:
 
-`AA:BB:CC:DD:EE:FF=iPhone de David`
+`AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
 
 Se pueden asociar varias MAC al mismo nombre, una por línea:
 
-`AA:BB:CC:DD:EE:FF=iPhone de David`
-`11:22:33:44:55:66=iPhone de David`
+`AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
+`11:22:33:44:55:66=iPhone de Mangaxhombro`
 
 Las MAC agrupadas se muestran como una única entidad lógica de presencia. El sensor **Dispositivos conectados** cuenta cada grupo una sola vez; **Lista de dispositivos** conserva el inventario físico del router, incluidas las MAC individuales.
-
-
-## Versión 1.3.6
-
-- Añadido el atributo `ip_address` a los sensores binarios de dispositivos individuales.
-- En los sensores de dispositivos agrupados, `ip_address` muestra las IP activas separadas por comas. Se mantienen los atributos anteriores, incluidos `ip` e `ips_conectadas`, para no romper automatizaciones existentes.
-- No se han modificado el intervalo de consulta (60 segundos), las comprobaciones de Internet ni la lógica de reinicio.
-
-
-## Versión 1.3.7
-
-- Añade sensores de texto `Dirección IP` asociados a cada dispositivo de red.
-- Para dispositivos agrupados por MAC, el sensor muestra las direcciones IPv4 activas separadas por comas.
-- Los sensores IP reutilizan los datos obtenidos en el sondeo existente; no añaden peticiones al router.
-
-
-## Versión 1.3.9
-
-- Nombre visible de la integración: **MitraStar GPT-2841GX4X5**.
-- Incluye `icon.png`, un icono propio del router sin logotipos de Movistar.
-- Añadido aviso de proyecto comunitario no oficial y sin afiliación ni respaldo de Telefónica/Movistar o MitraStar.
-- Conserva los sensores IP y el resto de la funcionalidad de la versión 1.3.8.
-- Retirado el control de modo de prueba de conectividad.
-- Renombrado el botón a «Reinicio manual del router».
-
-
-## Versión 1.4.0
-
-- Retirada la entidad «Modo de prueba de conectividad (sin reinicio)» y su lógica asociada.
-- Limpieza automática y acotada de la entidad antigua en el registro de Home Assistant, únicamente para esta configuración de la integración.
-- Se conservan «Reinicio automático por fallo de Internet» y «Reinicio manual del router».
-- Se mantiene el icono en `brand/icon.png`.
