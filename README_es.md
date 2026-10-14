@@ -9,13 +9,29 @@ Esta integración permite conectar Home Assistant con el router MitraStar GPT-28
 - Dar de alta en Home Assistant, como sensores binarios, todos los dispositivos conectados al router. Muestra los dispositivos como conectado o no y adicionalmente muestra la dirección IP de cada uno de ellos. Esto permite, entre otras cosas, gestionar un robusto y ágil sistema de control de presencia asociado a la conexión a las redes Wifi de los dispositivos móviles.
 - Monitorización de la conexión a internet. En caso de que la instalación pierda la conexión a internet, después de realizar tres comprobaciones (con una separación de 60 segundos entre cada una de ellas), detectando tres fallos consecutivos, la integración lanza un reinicio controlado por software del router. Además dispone de un botón para poder realizar un reinicio manual del router.
 
-## Gestión de sensores binarios.
+## Gestión de sensores binarios
 
-## Monitorización de la conexión a internet.
+![Controles reinicios](images/sensor_movil.jpg)
+
+### Agrupar varias MAC como un único dispositivo
+
+En Home Assistant, abre **Ajustes → Dispositivos y servicios → Mitrastar Router → Configurar** (opciones).
+En el campo **Asociaciones de MAC**, añade una línea por cada dirección MAC, con el formato:
+
+`AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
+
+Se pueden asociar varias MAC al mismo nombre, una por línea:
+
+`AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
+`11:22:33:44:55:66=iPhone de Mangaxhombro`
+
+Las MAC agrupadas se muestran como una única entidad lógica de presencia. El sensor **Dispositivos conectados** cuenta cada grupo una sola vez; **Lista de dispositivos** conserva el inventario físico del router, incluidas las MAC individuales.
+
+## Monitorización de la conexión a internet
 
 ![Controles reinicios](images/controles_reinicios.jpg)
 
-### Gestión automática.
+### Gestión automática
 
 - Comprueba TCP/53 contra 1.1.1.1 y 8.8.8.8 cada 60 segundos; declara fallo solo si fallan ambos.
 - Umbral: 3 fallos consecutivos.
@@ -26,7 +42,7 @@ Esta integración permite conectar Home Assistant con el router MitraStar GPT-28
 - Si se intenta un reinicio, no repite durante el mismo episodio; exige 5 minutos de Internet estable para desbloquear un nuevo episodio.
 - Espera hasta 10 minutos para verificar administración local e Internet. Si no se recupera, queda bloqueado y registra el error.
 
-### Reinicio manual del router.
+### Reinicio manual del router
 
 La entidad de botón **Reinicio manual del router** permite solicitar un reinicio explícito sin activar el interruptor de reinicio automático. Al pulsarla, la integración comprueba primero que la administración del router responde, envía la petición HTTP de reinicio usada por el watchdog y verifica durante un máximo de 10 minutos que vuelven la administración local y la conectividad a Internet. El resultado se refleja en el estado de recuperación y en el sensor de último intento.
 
@@ -55,18 +71,3 @@ Copia la carpeta `mitrastar_router` a `/config/custom_components/mitrastar_route
 ## Limitaciones
 
 El reinicio remoto todavía requiere una prueba controlada en el firmware concreto. Mantén el interruptor apagado hasta verificar la monitorización y habilítalo solo cuando aceptes que puede reiniciar el router si ambos destinos externos fallan durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
-
-
-## Agrupar varias MAC como un único dispositivo
-
-En Home Assistant, abre **Ajustes → Dispositivos y servicios → Mitrastar Router → Configurar** (opciones).
-En el campo **Asociaciones de MAC**, añade una línea por cada dirección MAC, con el formato:
-
-`AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
-
-Se pueden asociar varias MAC al mismo nombre, una por línea:
-
-`AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
-`11:22:33:44:55:66=iPhone de Mangaxhombro`
-
-Las MAC agrupadas se muestran como una única entidad lógica de presencia. El sensor **Dispositivos conectados** cuenta cada grupo una sola vez; **Lista de dispositivos** conserva el inventario físico del router, incluidas las MAC individuales.
