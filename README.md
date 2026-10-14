@@ -110,4 +110,6 @@ Due to a router limitation that prevents multiple user sessions from being manag
 
 It is therefore recommended to temporarily disable the integration whenever you need to make changes through the router's web administration interface.
 
+If you’ve found this integration useful, I’d really appreciate your support and contribution:
+
 <a href="https://www.buymeacoffee.com/mangaxhombro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;" ></a>
