@@ -5,6 +5,7 @@
 Versión 1.4.0. Mantiene la consulta de dispositivos, la monitorización de conectividad y los controles de reinicio.
 
 ## Seguridad y comportamiento
+
 - Comprueba TCP/53 contra 1.1.1.1 y 8.8.8.8 cada 60 segundos; declara fallo solo si fallan ambos.
 - Umbral: 3 fallos consecutivos.
 - El reinicio automático está desactivado por defecto; se habilita con el interruptor de Home Assistant.
@@ -14,11 +15,24 @@ Versión 1.4.0. Mantiene la consulta de dispositivos, la monitorización de cone
 - Si se intenta un reinicio, no repite durante el mismo episodio; exige 5 minutos de Internet estable para desbloquear un nuevo episodio.
 - Espera hasta 10 minutos para verificar administración local e Internet. Si no se recupera, queda bloqueado y registra el error.
 
+## Instalación mediante HACS
+
+1. Abre **HACS → Integraciones** en Home Assistant.
+2. Abre el menú de los tres puntos y selecciona **Repositorios personalizados**.
+3. Añade `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` como repositorio de categoría **Integración**.
+4. Busca **MitraStar GPT-2841GX4X5** e instálala.
+5. Reinicia Home Assistant.
+6. Ve a **Ajustes → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
+7. Sigue el asistente de configuración.
+
+La instalación mediante repositorio personalizado no implica que esta integración esté incluida en el catálogo predeterminado de HACS.
 
 ## Instalación
+
 Copia la carpeta `mitrastar_router` a `/config/custom_components/mitrastar_router/`, reinicia Home Assistant y recarga la integración. Haz copia de seguridad de la carpeta anterior antes de sustituirla.
 
 ## Limitaciones
+
 El reinicio remoto todavía requiere una prueba controlada en el firmware concreto. Mantén el interruptor apagado hasta verificar la monitorización y habilítalo solo cuando aceptes que puede reiniciar el router si ambos destinos externos fallan durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
 
 
