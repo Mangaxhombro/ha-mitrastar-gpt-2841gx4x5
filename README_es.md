@@ -105,3 +105,7 @@ La contraseña es la que hayamos puesto para el acceso a la configuración del r
 
 El reinicio remoto requiere una prueba controlada en el firmware concreto. Mantén el interruptor apagado hasta verificar la monitorización y habilítalo solo cuando aceptes que puede reiniciar el router si ambos destinos externos fallan durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
 Debido a limitaciones del router, que no puede gestionar varias cuentas de usuario, si se trata de acceder a la configuración del router con la integración habilitada, se desconectará la sesión manual abierta en la web de configuración del router en la siguiente conexión automática de la integración al router. Recomiendo deshabilitar temporalmemte la integración cuando se tenga que realizar alguna configuración desde la web de administración del router.
+
+Si esta integración te ha resultado útil te agradecería mucho tu apoyo y contribución:
+
+<a href="https://www.buymeacoffee.com/mangaxhombro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;" ></a>
