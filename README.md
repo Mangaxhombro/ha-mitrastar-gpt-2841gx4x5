@@ -114,4 +114,4 @@ It is therefore recommended to temporarily disable the integration whenever you 
 
 If you’ve found this integration useful, I’d really appreciate your support and contribution:
 
-<a href="https://www.buymeacoffee.com/mangaxhombro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/mangaxhombro" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 60 px !important;width: 217 px !important;" ></a>
