@@ -73,6 +73,8 @@ The **Manual router reboot** button allows you to explicitly request a reboot wi
 
 ## Installation via HACS
 
+[![Open HACS Repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Mangaxhombro&repository=ha-mitrastar-gpt-2841gx4x5&category=integration)
+
 1. Open **HACS → Integrations** in Home Assistant.
 2. Open the three-dot menu and select **Custom repositories**.
 3. Add `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` as a repository with the category **Integration**.
