@@ -29,6 +29,7 @@ En el campo **Asociaciones de MAC**, añade una línea por cada dirección MAC, 
 Se pueden asociar varias MAC al mismo nombre, una por línea:
 
 `AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
+
 `11:22:33:44:55:66=iPhone de Mangaxhombro`
 
 Las MAC agrupadas se muestran como una única entidad lógica de presencia. El sensor **Dispositivos conectados** cuenta cada grupo una sola vez; **Lista de dispositivos** conserva el inventario físico del router, incluidas las MAC individuales.
