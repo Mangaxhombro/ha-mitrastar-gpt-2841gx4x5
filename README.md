@@ -14,7 +14,17 @@
 
 > **Disclaimer:** This community integration is intended for use with MitraStar GPT-2841GX4X5 routers deployed on Movistar networks. It is an independent, unofficial project with no affiliation with, sponsorship by, or endorsement from Telefónica/Movistar or MitraStar. Brand and model names are used solely to identify the intended compatibility.
 
-This integration connects Home Assistant to the MitraStar GPT-2841GX4X5 router (Movistar Smart WiFi 6 Router) and provides two main features:
+This integration connects Home Assistant to the MitraStar GPT-2841GX4X5 router (Movistar Smart WiFi 6 Router) 
+
+## Prerequisites
+
+You must have a MitraStar router, model GPT-2841GX4X5, running firmware version GL_g2.11_100XNQ0b21. (The integration may also work with other router models, and it is even more likely to work with other firmware versions of the same router. However, since I don't have any other routers, I haven't been able to test this.)
+
+To check the router model, log in to the router's web administration interface and go to **Advanced Settings**. The model is displayed at the top of the page:
+
+![Router model](images/modelo_router.jpg)
+
+## Integration features
 
 - **Connected device tracking:** Registers all devices connected to the router in Home Assistant as binary sensors. Each device is shown as connected or disconnected, and its IP address is also provided. This allows you to build a robust and responsive presence detection system based on whether mobile devices are connected to your Wi-Fi networks.
 - **Internet connection monitoring and automatic router reboot in case of connectivity issues:** Forget about losing internet connectivity in your home automation setup due to connection or router problems! This can be a real headache when you're away from home, especially while on holiday. If the home automation system loses its internet connection, the integration performs three consecutive checks, spaced 60 seconds apart. If all three checks fail, the integration triggers a controlled software reboot of the router. It also provides a button to perform a manual reboot whenever needed.
