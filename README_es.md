@@ -24,7 +24,7 @@ Para comprobar el modelo hay que entrar en la web de administración del router 
 
 ![Modelo de router](images/modelo_router.jpg)
 
-para realizar dos funciones:
+## Funciones de la interación
 
 - Dar de alta en Home Assistant, como sensores binarios, todos los dispositivos conectados al router. Muestra los dispositivos como conectado o no y adicionalmente muestra la dirección IP de cada uno de ellos. Esto permite, entre otras cosas, gestionar un robusto y ágil sistema de control de presencia asociado a la conexión a las redes Wifi de los dispositivos móviles.
 - Monitorización de la conexión a internet y automatización del reinicio del router en caso de problemas de conexión. ¡¡Olvídate de quedarte sin conexión en tu instalación domótica de casa por un problema de conexión o del router!! Esta situación, cuando no estás en casa, puede ser un verdadero incordio sobre todo si estas de vacaciones. En caso de que la instalación pierda la conexión a internet, después de realizar tres comprobaciones (con una separación de 60 segundos entre cada una de ellas), detectando tres fallos consecutivos, la integración lanza un reinicio controlado por software del router. Además también dispone de un botón para poder realizar un reinicio manual.
