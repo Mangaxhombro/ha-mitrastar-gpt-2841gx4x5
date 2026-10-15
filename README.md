@@ -14,6 +14,8 @@
      alt="Movistar Smart WiFi 6 Router"
      width="150">
 
+![Movistar Smart WiFi 6 Router](images/Modem_Movistar_readme.png)
+
 > **Disclaimer:** This community integration is intended for use with MitraStar GPT-2841GX4X5 routers deployed on Movistar networks. It is an independent, unofficial project with no affiliation with, sponsorship by, or endorsement from Telefónica/Movistar or MitraStar. Brand and model names are used solely to identify the intended compatibility.
 
 This integration connects Home Assistant to the MitraStar GPT-2841GX4X5 router (Movistar Smart WiFi 6 Router) and provides two main features:
