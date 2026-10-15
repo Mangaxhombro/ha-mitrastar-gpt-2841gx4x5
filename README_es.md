@@ -14,7 +14,17 @@
 
 > **Aviso de independencia:** Esta integración comunitaria está destinada a funcionar con routers MitraStar GPT-2841GX4X5 utilizados en redes Movistar. Es un proyecto independiente y no oficial, sin afiliación, patrocinio ni respaldo de Telefónica/Movistar ni de MitraStar. Los nombres de marcas y modelos se utilizan únicamente para identificar la compatibilidad prevista.
 
-Esta integración permite conectar Home Assistant con el router MitraStar GPT-2841GX4X5 (Router Smart WiFi 6 de Movistar) para realizar dos funciones:
+Esta integración permite conectar Home Assistant con el router MitraStar GPT-2841GX4X5 (Router Smart WiFi 6 de Movistar) 
+
+## Pre-requisitos
+
+Tener el router Mitrastar modelo: GPT-2841GX4X5 con el firmware: GL_g2.11_100XNQ0b21. (Es posible que la interación funcione en otros modelos de router, y más probable aun con otras versiones de firmware del mismo royter, pero como no tengo otros routers no he podido probarlo.
+
+Para comprobar el modelo hay que entrar en la web de administración del router --> configuración avanzada. En la parte superior aparece el modelo:
+
+![Modelo de router](images/modelo_router.jpg)
+
+para realizar dos funciones:
 
 - Dar de alta en Home Assistant, como sensores binarios, todos los dispositivos conectados al router. Muestra los dispositivos como conectado o no y adicionalmente muestra la dirección IP de cada uno de ellos. Esto permite, entre otras cosas, gestionar un robusto y ágil sistema de control de presencia asociado a la conexión a las redes Wifi de los dispositivos móviles.
 - Monitorización de la conexión a internet y automatización del reinicio del router en caso de problemas de conexión. ¡¡Olvídate de quedarte sin conexión en tu instalación domótica de casa por un problema de conexión o del router!! Esta situación, cuando no estás en casa, puede ser un verdadero incordio sobre todo si estas de vacaciones. En caso de que la instalación pierda la conexión a internet, después de realizar tres comprobaciones (con una separación de 60 segundos entre cada una de ellas), detectando tres fallos consecutivos, la integración lanza un reinicio controlado por software del router. Además también dispone de un botón para poder realizar un reinicio manual.
