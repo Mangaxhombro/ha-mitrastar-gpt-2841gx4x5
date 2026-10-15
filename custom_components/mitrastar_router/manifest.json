@@ -1,13 +1,14 @@
+
 {
   "domain": "mitrastar_router",
   "name": "MitraStar GPT-2841GX4X5",
-  "version": "1.4.1",
-  "documentation": "https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5",
-  "config_flow": true,
-  "iot_class": "local_polling",
-  "requirements": [],
-  "issue_tracker": "https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/issues",
   "codeowners": [
     "@Mangaxhombro"
-  ]
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/issues",
+  "requirements": [],
+  "version": "1.4.1"
 }
