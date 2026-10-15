@@ -17,7 +17,7 @@
 This integration connects Home Assistant to the MitraStar GPT-2841GX4X5 router (Movistar Smart WiFi 6 Router) and provides two main features:
 
 - **Connected device tracking:** Registers all devices connected to the router in Home Assistant as binary sensors. Each device is shown as connected or disconnected, and its IP address is also provided. This allows you to build a robust and responsive presence detection system based on whether mobile devices are connected to your Wi-Fi networks.
-- **Internet connectivity monitoring:** If the Internet connection is lost, the integration performs three consecutive checks, spaced 60 seconds apart. If all three checks fail, the integration can issue a controlled software reboot of the router, provided automatic reboot is enabled. A button is also available to reboot the router manually.
+- **Internet connection monitoring and automatic router reboot in case of connectivity issues:** Forget about losing internet connectivity in your home automation setup due to connection or router problems! This can be a real headache when you're away from home, especially while on holiday. If the home automation system loses its internet connection, the integration performs three consecutive checks, spaced 60 seconds apart. If all three checks fail, the integration triggers a controlled software reboot of the router. It also provides a button to perform a manual reboot whenever needed.
 
 ## Binary sensor management
 
