@@ -10,9 +10,7 @@
 
 [🇬🇧 Read in English](README.md)
 
-<img src="https://raw.githubusercontent.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/main/images/mitrastar_icon_transparente.png"
-     alt="Movistar Smart WiFi 6 Router"
-     width="150">
+![Movistar Smart WiFi 6 Router](images/Modem_Movistar_readme.png)
 
 > **Aviso de independencia:** Esta integración comunitaria está destinada a funcionar con routers MitraStar GPT-2841GX4X5 utilizados en redes Movistar. Es un proyecto independiente y no oficial, sin afiliación, patrocinio ni respaldo de Telefónica/Movistar ni de MitraStar. Los nombres de marcas y modelos se utilizan únicamente para identificar la compatibilidad prevista.
 
