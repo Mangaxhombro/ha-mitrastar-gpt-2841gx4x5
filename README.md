@@ -3,7 +3,7 @@
 
 [![Latest Release](https://img.shields.io/github/v/release/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5?display_name=tag&style=flat)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/releases)
 [![License](https://img.shields.io/github/license/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5?style=flat)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/blob/main/LICENSE)
-[![HACS](https://img.shields.io/badge/HACS-Custom_Repository-41BDF5?style=flat)](https://www.hacs.xyz/)
+[![HACS](https://img.shields.io/badge/HACS-Default-41BDF5?style=flat)](https://www.hacs.xyz/)
 [![Validate](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/actions/workflows/validate.yaml/badge.svg?branch=main)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/actions/workflows/validate.yaml)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-support-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/mangaxhombro)
 
@@ -82,21 +82,30 @@ The **Manual router reboot** button allows you to explicitly request a reboot wi
 
 ![Sensor dashboard](images/panel_sensores.jpg)
 
-## Installation via HACS
+## Installation
+
+The integration is in the default HACS catalogue. Search for it in HACS.
+
+### Install with HACS
 
 [![Open HACS Repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Mangaxhombro&repository=ha-mitrastar-gpt-2841gx4x5&category=integration)
 
 1. Open **HACS → Integrations** in Home Assistant.
+2. Search for **MitraStar GPT-2841GX4X5** and download it.
+3. Restart Home Assistant.
+4. Go to **Settings → Devices & services → Add integration** and search for **MitraStar GPT-2841GX4X5**.
+5. Follow the configuration wizard.
+
+### Add it as a custom repository
+
+Use this if a HACS refresh has not picked up the catalogue entry yet.
+
+1. Open **HACS → Integrations**.
 2. Open the three-dot menu and select **Custom repositories**.
 3. Add `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` as a repository with the category **Integration**.
-4. Search for **MitraStar GPT-2841GX4X5** and install it.
-5. Restart Home Assistant.
-6. Go to **Settings → Devices & services → Add integration** and search for **MitraStar GPT-2841GX4X5**.
-7. Follow the configuration wizard.
+4. Search for **MitraStar GPT-2841GX4X5**, download it, restart Home Assistant, and add the integration as above.
 
-Installing this integration as a custom repository does not mean that it is included in the default HACS catalogue.
-
-## Manual installation
+### Manual installation
 
 Copy the `mitrastar_router` folder to `/config/custom_components/mitrastar_router/`, restart Home Assistant, and reload the integration. Back up the existing folder, if present, before replacing it.
 
