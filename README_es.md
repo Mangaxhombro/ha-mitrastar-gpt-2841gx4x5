@@ -65,7 +65,7 @@ Las MAC agrupadas se muestran como una única entidad lógica de presencia. El s
 - Comprueba TCP/53 contra 1.1.1.1 y 8.8.8.8 cada 60 segundos; declara fallo solo si fallan ambos.
 - Umbral: 3 fallos consecutivos.
 - El reinicio automático está desactivado por defecto; se habilita con el interruptor de Home Assistant.
-- El mecanismo usa POST `/cgi-bin/reboot.cgi` con `restoreFlag=1` y `RestartBtn=RESTART`, reutilizando la sesión autenticada.
+- El mecanismo usa POST `/cgi-bin/reboot.cgi` con `restoreFlag=1` y `RestartBtn=RESTART`, reutilizando la sesión autenticada. Probado en un MitraStar GPT-2841GX4X5 real, esto reinicia el router y no restaura los valores de fábrica. Otras versiones de firmware pueden diferir.
 - Antes de enviar la orden, comprueba el acceso local al router.
 - Guarda el último intento y el bloqueo en almacenamiento persistente de Home Assistant.
 - Si se intenta un reinicio, no repite durante el mismo episodio; exige 5 minutos de Internet estable para desbloquear un nuevo episodio.
@@ -75,7 +75,7 @@ Las MAC agrupadas se muestran como una única entidad lógica de presencia. El s
 
 La entidad de botón **Reinicio manual del router** permite solicitar un reinicio explícito sin activar el interruptor de reinicio automático. Al pulsarla, la integración comprueba primero que la administración del router responde, envía la petición HTTP de reinicio usada por el watchdog y verifica durante un máximo de 10 minutos que vuelven la administración local y la conectividad a Internet. El resultado se refleja en el estado de recuperación y en el sensor de último intento.
 
-**Advertencia:** al pulsar este botón el router se reinicia realmente y la conexión se interrumpe temporalmente. La prueba no demuestra por sí sola que el firmware no interprete de forma diferente los parámetros HTTP. Mantén desactivado el reinicio automático hasta completar la prueba.
+**Advertencia:** al pulsar este botón el router se reinicia y la conexión se interrumpe hasta que vuelve. La petición se ha probado en un MitraStar GPT-2841GX4X5 real: reinicia el router y no restaura los valores de fábrica. Otras versiones de firmware pueden diferir.
 
 ## Panel de sensores
 
@@ -109,11 +109,11 @@ El nombre de usuario se obtiene desde la zona de configuración avanzada --> Man
 
 ![Usuario](images/username.jpg)
 
-La contraseña es la que hayamos puesto para el acceso a la configuración del router.
+La contraseña es la que hayamos puesto para el acceso a la configuración del router. Si más adelante el router rechaza esa contraseña, Home Assistant pide la actual en lugar de reintentar la contraseña guardada.
 
 ## Limitaciones
 
-El reinicio remoto requiere una prueba controlada en el firmware concreto. Mantén el interruptor apagado hasta verificar la monitorización y habilítalo solo cuando aceptes que puede reiniciar el router si ambos destinos externos fallan durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
+La petición de reinicio se ha probado en un MitraStar GPT-2841GX4X5 real. Tanto el botón de reinicio manual como el interruptor de reinicio automático reinician el router y no restauran los valores de fábrica. Otras versiones de firmware pueden diferir. Activa el reinicio automático solo si aceptas que puede reiniciar el router cuando ambos destinos externos fallen durante tres ciclos. La comprobación TCP puede fallar si la red bloquea TCP/53; no se basa en ping ICMP.
 Debido a limitaciones del router, que no puede gestionar varias cuentas de usuario, si se trata de acceder a la configuración del router con la integración habilitada, se desconectará la sesión manual abierta en la web de configuración del router en la siguiente conexión automática de la integración al router. Recomiendo deshabilitar temporalmemte la integración cuando se tenga que realizar alguna configuración desde la web de administración del router.
 
 Si esta integración te ha resultado útil te agradecería mucho tu apoyo y contribución:

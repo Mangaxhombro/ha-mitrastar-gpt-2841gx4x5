@@ -66,7 +66,7 @@ Grouped MAC addresses are represented by a single logical presence entity. The *
 - Checks TCP port 53 on `1.1.1.1` and `8.8.8.8` every 60 seconds. A connectivity failure is registered only if both destinations fail.
 - Failure threshold: 3 consecutive failed checks.
 - Automatic reboot is disabled by default and can be enabled using the Home Assistant switch.
-- The reboot mechanism sends a POST request to `/cgi-bin/reboot.cgi` with `restoreFlag=1` and `RestartBtn=RESTART`, reusing the authenticated session.
+- The reboot mechanism sends a POST request to `/cgi-bin/reboot.cgi` with `restoreFlag=1` and `RestartBtn=RESTART`, reusing the authenticated session. Tested on a real MitraStar GPT-2841GX4X5, this restarts the router and does not restore factory defaults. Other firmware versions may differ.
 - Before sending the reboot command, the integration checks that the router's local administration interface is accessible.
 - The last reboot attempt and lockout state are stored in persistent Home Assistant storage.
 - After a reboot is attempted, the integration will not repeat it during the same failure episode. Five minutes of stable Internet connectivity are required before another episode can trigger a reboot.
@@ -76,7 +76,7 @@ Grouped MAC addresses are represented by a single logical presence entity. The *
 
 The **Manual router reboot** button allows you to explicitly request a reboot without enabling the automatic reboot switch. When pressed, the integration first checks that the router's administration interface is responding, sends the HTTP reboot request used by the watchdog, and then checks for up to 10 minutes that local administration and Internet connectivity have returned. The outcome is reflected in the recovery status and the last-attempt sensor.
 
-**Warning:** Pressing this button will actually reboot the router, temporarily interrupting the connection. This test alone does not prove that the router firmware will interpret the HTTP parameters as expected. Keep automatic reboot disabled until the reboot procedure has been tested successfully.
+**Warning:** Pressing this button restarts the router and the connection drops until it comes back. The request was tested on a real MitraStar GPT-2841GX4X5: it restarts the router and does not restore factory defaults. Other firmware versions may differ.
 
 ## Sensor dashboard
 
@@ -110,11 +110,11 @@ The username can be found in the router's advanced configuration interface under
 
 ![Username](images/username.jpg)
 
-The password is the one configured for accessing the router's administration interface.
+The password is the one configured for accessing the router's administration interface. If the router later rejects that password, Home Assistant asks for the current one instead of retrying the stored password.
 
 ## Limitations
 
-The remote reboot function requires a controlled test on the specific router firmware. Keep the automatic reboot switch disabled until you have verified connectivity monitoring, and enable it only if you accept that the router may reboot when both external destinations fail for three consecutive checks. TCP connectivity checks may fail if the network blocks TCP port 53; they do not rely on ICMP ping.
+The reboot request was tested on a real MitraStar GPT-2841GX4X5. Both the manual reboot button and the automatic reboot switch restart the router and do not restore factory defaults. Other firmware versions may differ. Enable automatic reboot only if you accept that the router may reboot when both external destinations fail for three consecutive checks. TCP connectivity checks may fail if the network blocks TCP port 53; they do not rely on ICMP ping.
 
 Due to a router limitation that prevents multiple user sessions from being managed independently, accessing the router's administration interface manually while the integration is enabled may cause the web administration session to be logged out when the integration next connects automatically.
 
