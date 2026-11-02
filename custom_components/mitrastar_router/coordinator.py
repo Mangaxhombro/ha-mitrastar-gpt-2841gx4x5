@@ -10,6 +10,7 @@ from html import unescape
 import aiohttp
 
 from homeassistant.core import HomeAssistant
+from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.storage import Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -22,6 +23,11 @@ _LOGGER = logging.getLogger(__name__)
 class InvalidAuth(Exception):
     """Router credentials or session were rejected."""
 
+
+
+def _response_requires_login(html: str) -> bool:
+    """Return True when the router responded with the login page."""
+    return "window.parent.location.href" in html and "login_advance.cgi" in html
 
 
 def _clean_html(value: str) -> str:
@@ -51,7 +57,7 @@ def _parse_mac_groups(raw: str) -> dict[str, dict]:
 
 
 def _parse_devices(html: str) -> list[dict]:
-    if "window.parent.location.href" in html and "login_advance.cgi" in html:
+    if _response_requires_login(html):
         raise InvalidAuth("Router session is not authenticated")
     if "Device Name" not in html or "MAC Address" not in html:
         raise UpdateFailed("Router response did not contain the expected device table")
@@ -104,6 +110,9 @@ class MitrastarCoordinator(DataUpdateCoordinator):
         self.password = entry.options.get(CONF_PASSWORD) or entry.data[CONF_PASSWORD]
         self._session = None
         self._logged_in = False
+        # Set when the router rejects the password. Further logins are skipped
+        # until the entry is reloaded with new credentials.
+        self._auth_failed = False
         self.internet_ok = None
         self.internet_failures = 0
         self.recovery_state = "monitorizando"
@@ -118,6 +127,7 @@ class MitrastarCoordinator(DataUpdateCoordinator):
         super().__init__(
             hass,
             _LOGGER,
+            config_entry=entry,
             name=DOMAIN,
             update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
         )
@@ -157,6 +167,7 @@ class MitrastarCoordinator(DataUpdateCoordinator):
         obj.password = data[CONF_PASSWORD]
         obj._session = None
         obj._logged_in = False
+        obj._auth_failed = False
         # Connection tests use a partially constructed coordinator; initialize
         # every attribute that async_close may access.
         obj._monitor_unsub = None
@@ -174,7 +185,27 @@ class MitrastarCoordinator(DataUpdateCoordinator):
                 cookie_jar=aiohttp.CookieJar(unsafe=True),
             )
 
+    def _mark_auth_failed(self) -> None:
+        """Remember a rejected password so later calls do not log in again."""
+        if self._auth_failed:
+            return
+        self._auth_failed = True
+        self._logged_in = False
+        # Connection tests build a partial coordinator with no config entry.
+        # Only a running entry should log this; the config flow reports the
+        # failure itself.
+        if getattr(self, "entry", None) is not None:
+            _LOGGER.error(
+                "El router MitraStar en %s ha rechazado las credenciales; "
+                "no se volverá a iniciar sesión hasta reautenticar la integración",
+                self.host,
+            )
+
     async def _async_login(self):
+        if self._auth_failed:
+            raise InvalidAuth(
+                "El router ha rechazado las credenciales; esperando reautenticación"
+            )
         await self._ensure_session()
         login_url = f"{self.host}/cgi-bin/login_advance.cgi"
         async with self._session.get(login_url) as response:
@@ -205,11 +236,24 @@ class MitrastarCoordinator(DataUpdateCoordinator):
         self._logged_in = True
 
     async def _async_fetch_devices(self):
+        """Return connected devices, submitting a rejected password only once.
+
+        A stale session is refreshed with one new login. If that login still
+        lands on the login page, the password is wrong: remember it and do not
+        send the credentials again.
+        """
+        if self._auth_failed:
+            raise InvalidAuth(
+                "El router ha rechazado las credenciales; esperando reautenticación"
+            )
+
         await self._ensure_session()
         devices_url = f"{self.host}/cgi-bin/connection_table_list.cgi"
         for attempt in range(2):
+            just_logged_in = False
             if not self._logged_in:
                 await self._async_login()
+                just_logged_in = True
             async with self._session.get(
                 devices_url,
                 headers={
@@ -219,15 +263,28 @@ class MitrastarCoordinator(DataUpdateCoordinator):
             ) as response:
                 html = await response.text(errors="replace")
                 response.raise_for_status()
-            if "window.parent.location.href" in html and "login_advance.cgi" in html:
+            if _response_requires_login(html):
                 self._logged_in = False
-                if attempt == 0:
+                # The request was already unauthenticated, so try one fresh
+                # login. A login that was just rejected must not be repeated.
+                if not just_logged_in and attempt == 0:
                     continue
-                raise InvalidAuth("El router ha rechazado la sesión; revisa las credenciales")
-            devices = _parse_devices(html)
+                self._mark_auth_failed()
+                raise InvalidAuth(
+                    "El router ha rechazado la sesión; revisa las credenciales"
+                )
+            try:
+                devices = _parse_devices(html)
+            except InvalidAuth:
+                self._logged_in = False
+                if not just_logged_in and attempt == 0:
+                    continue
+                self._mark_auth_failed()
+                raise
             if not devices:
                 raise UpdateFailed("La respuesta no contiene dispositivos interpretables")
             return devices
+        self._mark_auth_failed()
         raise InvalidAuth("No se pudo autenticar con el router")
 
     async def async_load_watchdog_state(self):
@@ -290,6 +347,10 @@ class MitrastarCoordinator(DataUpdateCoordinator):
             return False
 
     async def _send_software_reboot(self):
+        if self._auth_failed:
+            raise InvalidAuth(
+                "El router ha rechazado las credenciales; no se envía el reinicio"
+            )
         await self._ensure_session()
         if not self._logged_in:
             await self._async_login()
@@ -326,7 +387,16 @@ class MitrastarCoordinator(DataUpdateCoordinator):
         """Start an explicitly requested manual reboot, independent of auto-reboot."""
         if self._reboot_in_progress:
             raise UpdateFailed("Ya hay un reinicio en curso")
-        if not await self._router_admin_reachable():
+        reachable = False if self._auth_failed else await self._router_admin_reachable()
+        if self._auth_failed or not reachable:
+            if self._auth_failed:
+                self.last_reboot_result = "No enviado: credenciales rechazadas"
+                self.recovery_state = "Reinicio manual cancelado: credenciales rechazadas"
+                self.async_update_listeners()
+                raise UpdateFailed(
+                    "Las credenciales del router fueron rechazadas. "
+                    "Vuelve a autenticar la integración."
+                )
             self.last_reboot_result = "No enviado: administración local no responde"
             self.recovery_state = "Reinicio manual cancelada: router inaccesible"
             self.async_update_listeners()
@@ -349,12 +419,20 @@ class MitrastarCoordinator(DataUpdateCoordinator):
             await self._send_software_reboot()
             recovered = False
             deadline = time.time() + RECOVERY_TIMEOUT_SECONDS
-            while time.time() < deadline:
+            while time.time() < deadline and not self._auth_failed:
                 await asyncio.sleep(15)
-                if await self._router_admin_reachable() and await self._check_internet():
+                if self._auth_failed:
+                    break
+                admin_up = await self._router_admin_reachable()
+                if self._auth_failed:
+                    break
+                if admin_up and await self._check_internet():
                     recovered = True
                     break
-            if recovered:
+            if self._auth_failed:
+                self.last_reboot_result = "Reinicio manual: credenciales rechazadas"
+                self.recovery_state = "Reinicio manual detenido: credenciales rechazadas"
+            elif recovered:
                 self.internet_ok = True
                 self.internet_failures = 0
                 self.last_reboot_result = "Reinicio manual: recuperación verificada"
@@ -363,6 +441,9 @@ class MitrastarCoordinator(DataUpdateCoordinator):
             else:
                 self.last_reboot_result = "Reinicio manual: sin recuperación en 10 minutos; requiere revisión"
                 self.recovery_state = "Reinicio manual fallida; reinicio automático bloqueado"
+        except InvalidAuth:
+            self.last_reboot_result = "Reinicio manual: credenciales rechazadas"
+            self.recovery_state = "Reinicio manual detenido: credenciales rechazadas"
         except Exception as err:
             self.last_reboot_result = f"Reinicio manual: resultado incierto ({type(err).__name__})"
             self.recovery_state = "Reinicio manual: resultado incierto; reinicio automático bloqueado"
@@ -403,32 +484,53 @@ class MitrastarCoordinator(DataUpdateCoordinator):
                     self.recovery_state = "Fallo persistente; reinicio ya intentado"
                 elif not self.auto_reboot_enabled:
                     self.recovery_state = "Fallo persistente; reinicio automático desactivado"
+                elif self._auth_failed:
+                    self.recovery_state = "Fallo persistente; credenciales rechazadas, reinicio no enviado"
                 elif time.time() - (float(self.last_reboot or 0)) < REBOOT_LOCKOUT_SECONDS:
                     self.recovery_state = "Reinicio bloqueado durante periodo de seguridad"
                 else:
-                    # Marcar y persistir ANTES de la orden para impedir bucles incluso
-                    # si Home Assistant se reinicia o la respuesta HTTP es ambigua.
-                    self._reboot_attempted_episode = True
+                    # Hold the monitor tick so a slow login or reboot check cannot
+                    # start a second attempt. The episode is persisted only once
+                    # a reboot is actually going to be sent, or the router was
+                    # unreachable for a non-auth reason. A rejected password must
+                    # not be stored as a reboot, and must not be retried.
                     self._reboot_in_progress = True
-                    self.last_reboot = time.time()
-                    self.last_reboot_result = "Orden enviada; verificando recuperación"
-                    self.recovery_state = "Reiniciando router"
-                    await self._save_watchdog_state()
-                    self.async_update_listeners()
                     try:
-                        if not await self._router_admin_reachable():
+                        reachable = await self._router_admin_reachable()
+                        if self._auth_failed:
+                            self.last_reboot_result = "No enviado: credenciales rechazadas"
+                            self.recovery_state = "Credenciales rechazadas; reinicio no enviado"
+                        elif not reachable:
+                            self._reboot_attempted_episode = True
+                            self.last_reboot = time.time()
                             self.last_reboot_result = "No enviado: administración local no responde"
                             self.recovery_state = "Router inaccesible; reinicio no enviado"
                         else:
+                            # Marcar y persistir ANTES de la orden para impedir bucles incluso
+                            # si Home Assistant se reinicia o la respuesta HTTP es ambigua.
+                            self._reboot_attempted_episode = True
+                            self.last_reboot = time.time()
+                            self.last_reboot_result = "Orden enviada; verificando recuperación"
+                            self.recovery_state = "Reiniciando router"
+                            await self._save_watchdog_state()
+                            self.async_update_listeners()
                             await self._send_software_reboot()
                             recovered = False
                             deadline = time.time() + RECOVERY_TIMEOUT_SECONDS
-                            while time.time() < deadline:
+                            while time.time() < deadline and not self._auth_failed:
                                 await asyncio.sleep(15)
-                                if await self._router_admin_reachable() and await self._check_internet():
+                                if self._auth_failed:
+                                    break
+                                admin_up = await self._router_admin_reachable()
+                                if self._auth_failed:
+                                    break
+                                if admin_up and await self._check_internet():
                                     recovered = True
                                     break
-                            if recovered:
+                            if self._auth_failed:
+                                self.last_reboot_result = "Credenciales rechazadas durante la verificación"
+                                self.recovery_state = "Reinicio detenido: credenciales rechazadas"
+                            elif recovered:
                                 self.internet_ok = True
                                 self.internet_failures = 0
                                 self.last_reboot_result = "Recuperación verificada"
@@ -437,6 +539,9 @@ class MitrastarCoordinator(DataUpdateCoordinator):
                             else:
                                 self.last_reboot_result = "No se recuperó en 10 minutos; requiere revisión"
                                 self.recovery_state = "Recuperación fallida; reinicio automático bloqueado"
+                    except InvalidAuth:
+                        self.last_reboot_result = "Credenciales rechazadas; reinicio no enviado"
+                        self.recovery_state = "Reinicio detenido: credenciales rechazadas"
                     except Exception as err:
                         self.last_reboot_result = f"Resultado incierto: {type(err).__name__}"
                         self.recovery_state = "Resultado incierto; reinicio automático bloqueado"
@@ -449,8 +554,14 @@ class MitrastarCoordinator(DataUpdateCoordinator):
     async def _async_update_data(self):
         try:
             return await self._async_fetch_devices()
-        except InvalidAuth:
-            raise
+        except InvalidAuth as err:
+            # A bare InvalidAuth becomes "Unexpected error fetching" and the
+            # coordinator keeps polling. ConfigEntryAuthFailed stops the
+            # schedule and starts the reauth flow.
+            self._mark_auth_failed()
+            raise ConfigEntryAuthFailed(
+                "El router MitraStar ha rechazado las credenciales"
+            ) from err
         except (aiohttp.ClientError, asyncio.TimeoutError, UpdateFailed) as err:
             raise UpdateFailed(f"Error consultando el router Mitrastar: {err}") from err
 

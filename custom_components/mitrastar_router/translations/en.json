@@ -9,11 +9,21 @@
           "username": "Username",
           "password": "Password"
         }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate MitraStar router",
+        "description": "The router rejected the password for {username}. Enter the current administrator password.",
+        "data": {
+          "password": "Password"
+        }
       }
     },
     "error": {
       "invalid_auth": "Invalid username or password",
       "cannot_connect": "Unable to connect to the router"
+    },
+    "abort": {
+      "reauth_successful": "Reauthentication successful. The new password has been saved."
     }
   },
   "options": {
