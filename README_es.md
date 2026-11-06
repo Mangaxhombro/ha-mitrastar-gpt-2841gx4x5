@@ -3,7 +3,7 @@
 
 [![última versión](https://img.shields.io/github/v/release/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5?display_name=tag&style=flat)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/releases)
 [![Licencia](https://img.shields.io/github/license/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5?style=flat)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/blob/main/LICENSE)
-[![HACS](https://img.shields.io/badge/HACS-Default-41BDF5?style=flat)](https://www.hacs.xyz/)
+[![HACS](https://img.shields.io/badge/HACS-Default-41BDF5?style=flat)](https://www.hacs.xyz/docs/marketplace/)
 [![Validado](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/actions/workflows/validate.yaml/badge.svg?branch=main)](https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5/actions/workflows/validate.yaml)
 [![Invítame a un café](https://img.shields.io/badge/Inv%C3%ADtame%20a%20un%20caf%C3%A9-ap%C3%B3yame-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/mangaxhombro)
 
@@ -83,11 +83,37 @@ La entidad de botón **Reinicio manual del router** permite solicitar un reinici
 
 ## Instalación
 
-La integración está en el catálogo predeterminado de HACS. Búscala en HACS.
+Esta integración está en el catálogo comunitario predeterminado (`hacs/default`), el mismo catálogo que usan HACS y Marketplace.
 
-### Instalar con HACS
+En Home Assistant **2026.11 o posterior**, instálala desde **Marketplace**, en **Ajustes → Marketplace**. Marketplace es para administradores y no está en la barra lateral. En Home Assistant **2026.10 o anterior**, instálala desde **HACS** en la barra lateral. Si ya la instalaste con HACS, al actualizar a 2026.11 pasa a Marketplace automáticamente.
+
+### Instalar con Marketplace (Home Assistant 2026.11 o posterior)
+
+[![Open your Home Assistant instance and open a repository in the Marketplace.](https://my.home-assistant.io/badges/marketplace_repository.svg)](https://my.home-assistant.io/redirect/marketplace_repository/?owner=Mangaxhombro&repository=ha-mitrastar-gpt-2841gx4x5&category=integration)
+
+La primera vez que abres Marketplace, Home Assistant muestra un aviso de riesgo. Hay que aceptarlo antes de instalar o actualizar.
+
+1. Abre **Ajustes → Marketplace**.
+2. Busca **MitraStar GPT-2841GX4X5** e instálala (**Install**).
+3. Completa la configuración. Si la integración puede cargarse de inmediato, el asistente puede abrirse al terminar la instalación. Si no, ve a **Ajustes → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
+4. Si Marketplace indica que hace falta reiniciar, o una reparación lo pide, reinicia Home Assistant antes de terminar la configuración. Las actualizaciones también pueden pedir un reinicio. Sigue lo que muestren Marketplace y las reparaciones.
+
+### Añadirla desde un enlace (Marketplace)
+
+Úsalo si la entrada del catálogo todavía no aparece. Añadir un repositorio que no está en el catálogo necesita una conexión con GitHub. Si GitHub aún no está conectado, Marketplace pide conectarlo al añadir el repositorio. Ver el catálogo e instalar desde él no necesita esa conexión.
+
+1. Abre **Ajustes → Marketplace**.
+2. En la esquina superior derecha, elige añadir el repositorio desde un enlace (**Add from link**).
+3. Pega `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` y confirma (**Add**).
+4. Abre **MitraStar GPT-2841GX4X5**, instálala y completa la configuración como arriba.
+
+### Instalar con HACS (Home Assistant 2026.10 o anterior)
+
+Estos pasos son para Home Assistant **2026.10 o anterior**. Home Assistant bloquea la integración personalizada de HACS en **2026.11 y posterior**, así que HACS no se puede instalar en esas versiones. Usa Marketplace, más arriba.
 
 [![Open HACS Repository](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Mangaxhombro&repository=ha-mitrastar-gpt-2841gx4x5&category=integration)
+
+En 2026.10 o anterior, este botón abre el repositorio en HACS. En 2026.11 o posterior, el mismo enlace abre Marketplace; en Home Assistant actual usa el botón de Marketplace de arriba.
 
 1. Abre **HACS → Integraciones** en Home Assistant.
 2. Busca **MitraStar GPT-2841GX4X5** y descárgala.
@@ -95,9 +121,9 @@ La integración está en el catálogo predeterminado de HACS. Búscala en HACS.
 4. Ve a **Ajustes → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
 5. Sigue el asistente de configuración.
 
-### Añadirla como repositorio personalizado
+#### Añadirla como repositorio personalizado (HACS)
 
-Úsalo si una actualización de HACS todavía no muestra la entrada del catálogo.
+Úsalo en Home Assistant 2026.10 o anterior si una actualización de HACS todavía no muestra la entrada del catálogo.
 
 1. Abre **HACS → Integraciones**.
 2. Abre el menú de los tres puntos y selecciona **Repositorios personalizados**.
