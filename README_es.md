@@ -41,7 +41,7 @@ Esto permite mostrar en HA paneles informativos en relación a los dispositivos 
 
 La gestión de dispositivos se hace mediante la dirección MAC. En el caso de algunos dispositivos, al conectarse a las diferentes redes Wifi domésticas, la dirección MAC cambia. La integración dispone de una funcionalidad de agrupación de un mismo dispositivo bajo diferentes direcciones MAC. Esto garantiza una detección mucho más fiable y libre de errores o dispositivos repetidos. Cuando se utiliza esta funcionalidad la integración elimina automáticamente los dispositivos repetidos dejando un único dispositivo.
 
-En Home Assistant, abre **Ajustes → Dispositivos y servicios → Mitrastar Router → Configurar** (opciones).
+En Home Assistant, abre **Configuración → Dispositivos y servicios → Mitrastar Router → Configurar** (opciones).
 En el campo **Asociaciones de MAC**, añade una línea por cada dirección MAC, con el formato:
 
 `AA:BB:CC:DD:EE:FF=iPhone de Mangaxhombro`
@@ -85,7 +85,7 @@ La entidad de botón **Reinicio manual del router** permite solicitar un reinici
 
 Esta integración está en el catálogo comunitario predeterminado (`hacs/default`), el mismo catálogo que usan HACS y Marketplace.
 
-En Home Assistant **2026.11 o posterior**, instálala desde **Marketplace**, en **Ajustes → Marketplace**. Marketplace es para administradores y no está en la barra lateral. En Home Assistant **2026.10 o anterior**, instálala desde **HACS** en la barra lateral. Si ya la instalaste con HACS, al actualizar a 2026.11 pasa a Marketplace automáticamente.
+En Home Assistant **2026.11 o posterior**, instálala desde **Marketplace**, en **Configuración → Marketplace**. Marketplace es para administradores y no está en la barra lateral. En Home Assistant **2026.10 o anterior**, instálala desde **HACS** en la barra lateral. Si ya la instalaste con HACS, al actualizar a 2026.11 pasa a Marketplace automáticamente.
 
 ### Instalar con Marketplace (Home Assistant 2026.11 o posterior)
 
@@ -93,19 +93,19 @@ En Home Assistant **2026.11 o posterior**, instálala desde **Marketplace**, en 
 
 La primera vez que abres Marketplace, Home Assistant muestra un aviso de riesgo. Hay que aceptarlo antes de instalar o actualizar.
 
-1. Abre **Ajustes → Marketplace**.
-2. Busca **MitraStar GPT-2841GX4X5** e instálala (**Install**).
-3. Completa la configuración. Si la integración puede cargarse de inmediato, el asistente puede abrirse al terminar la instalación. Si no, ve a **Ajustes → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
+1. Abre **Configuración → Marketplace**.
+2. Busca **MitraStar GPT-2841GX4X5** y selecciona **Instalar**.
+3. Completa la configuración. Si la integración puede cargarse de inmediato, el asistente puede abrirse al terminar la instalación. Si no, ve a **Configuración → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
 4. Si Marketplace indica que hace falta reiniciar, o una reparación lo pide, reinicia Home Assistant antes de terminar la configuración. Las actualizaciones también pueden pedir un reinicio. Sigue lo que muestren Marketplace y las reparaciones.
 
 ### Añadirla desde un enlace (Marketplace)
 
 Úsalo si la entrada del catálogo todavía no aparece. Añadir un repositorio que no está en el catálogo necesita una conexión con GitHub. Si GitHub aún no está conectado, Marketplace pide conectarlo al añadir el repositorio. Ver el catálogo e instalar desde él no necesita esa conexión.
 
-1. Abre **Ajustes → Marketplace**.
-2. En la esquina superior derecha, elige añadir el repositorio desde un enlace (**Add from link**).
-3. Pega `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` y confirma (**Add**).
-4. Abre **MitraStar GPT-2841GX4X5**, instálala y completa la configuración como arriba.
+1. Abre **Configuración → Marketplace**.
+2. En la esquina superior derecha, selecciona **Añadir desde enlace**.
+3. Pega `https://github.com/Mangaxhombro/ha-mitrastar-gpt-2841gx4x5` y selecciona **Añadir**.
+4. Abre **MitraStar GPT-2841GX4X5**, selecciona **Instalar** y completa la configuración como arriba.
 
 ### Instalar con HACS (Home Assistant 2026.10 o anterior)
 
@@ -118,7 +118,7 @@ En 2026.10 o anterior, este botón abre el repositorio en HACS. En 2026.11 o pos
 1. Abre **HACS → Integraciones** en Home Assistant.
 2. Busca **MitraStar GPT-2841GX4X5** y descárgala.
 3. Reinicia Home Assistant.
-4. Ve a **Ajustes → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
+4. Ve a **Configuración → Dispositivos y servicios → Añadir integración** y busca **MitraStar GPT-2841GX4X5**.
 5. Sigue el asistente de configuración.
 
 #### Añadirla como repositorio personalizado (HACS)
